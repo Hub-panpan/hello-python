@@ -118,6 +118,10 @@ def showLogRegres(weights, train_x, train_y):
     plt.ylabel('X2')
     plt.show()
 
+
+
+
+
 def loadData():
     #初始化  训练数据
     train_x = []
