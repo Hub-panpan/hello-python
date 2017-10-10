@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+           
+     <!-- 
+        	首先加载类
+     -->      
+  	<bean id="personDao" class="com.itheima12.spring.aop.xml.time.dao.impl.PersonDaoImpl"></bean>
+  	<bean id="personService" class="com.itheima12.spring.aop.xml.time.service.impl.PersonServiceImpl">
+  		<property name="personDao">
+  			<ref bean="personDao"/>
+  		</property>
+  	</bean>
+  	<bean id="personAction" class="com.itheima12.spring.aop.xml.time.action.PersonAction">
+  		<property name="personService">
+  			<ref bean="personService"/>
+  		</property>
+  	</bean>
+  	
+  	<!--这个就是切片类 -->
+  	<bean id="timeAspect" class="com.itheima12.spring.aop.xml.time.aspect.TimeAspect"></bean>
+  	
+  	
+  	<!-- 
+  	   这里的切片表达式 action层 service层 dao层 且不包括 aspect层
+  	   实际的开发的时候   包名字都不同 名字 不会这么复杂
+  	   当然 你也可以写三个 切面表达式
+  	   
+  	   action层 service层 dao层都当成我的目标类
+  	-->
+  	<aop:config>
+  		<aop:pointcut 
+  			expression="execution(* com.itheima12.spring.aop.xml.time..*.*(..))" 
+  			id="perform"/>
+  		<aop:aspect ref="timeAspect">
+  			<aop:around method="methodExecutionTime" pointcut-ref="perform"/>
+  		</aop:aspect>
+  	</aop:config>
+</beans>

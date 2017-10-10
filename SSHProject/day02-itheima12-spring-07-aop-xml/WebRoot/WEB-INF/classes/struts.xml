@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.i18n.encoding" value="UTF-8"></constant>
+    <constant name="struts.action.extension" value="do,aciton,,"></constant>
+
+    <package name="default" namespace="/" extends="struts-default">
+		<!--首先 我们先登陆  登陆成功以后 跳转到成功页面
+		    成功页面 功能1：显示所有用户信息
+		    	    功能2：插入一个用户
+		    	    功能3：删除一个用户
+		    	    功能4：查询单一用户
+		 -->
+		<action name="login" class="com.myaction.LoginAction" method="loign">
+			<result name="success">/showAllUser.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!--使用通配符进行 增删改查的操作 例如 user_add     找到userAction类    中 的 add 方法
+		如果是 返回成功 则跳到成功的页面
+		如果是返回错误 则跳到失败界面
+		如果是返回查询关键字  则我们跳到 查询界面
+		-->
+		
+		<action name="*_*" class="com.myaction.{1}Action" method="{2}">
+			<result name="success">/showAllUser.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="query">/{1}_query.jsp</result>
+			<result name="update">/{1}_update.jsp</result>
+		</action>
+		
+		
+	</package>
+</struts>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+     <!--
+     		  首先 将所有的类配置进来
+      -->      
+           
+  	<bean id="personDao" class="com.itheima12.spring.aop.xml.exception.dao.impl.PersonDaoImpl"></bean>
+  	<bean id="personService" class="com.itheima12.spring.aop.xml.exception.service.impl.PersonServiceImpl">
+  		<property name="personDao">
+  			<ref bean="personDao"/>
+  		</property>
+  	</bean>
+  	
+  	<bean id="studentDao" class="com.itheima12.spring.aop.xml.exception.dao.impl.StudentDaoImpl"></bean>
+  	<bean id="studentService" class="com.itheima12.spring.aop.xml.exception.service.impl.StudentServiceImpl">
+  		<property name="studentDao">
+  			<ref bean="studentDao"/>
+  		</property>
+  	</bean>
+  	
+  	<bean id="exceptionAspect" 
+  		class="com.itheima12.spring.aop.xml.exception.aspect.ExceptionAspect"></bean>
+  	<!--  
+  	    接下来进行AOP的配置  
+  	    
+  	    *代表所有的类
+  	    *代表所有的方法
+  	-->	
+  		
+  	<aop:config>
+  		<aop:pointcut 
+  			expression="execution(* com.itheima12.spring.aop.xml.exception.service.impl.*.*(..))" 
+  			id="perform"/>
+  		<aop:aspect ref="exceptionAspect">
+  			<aop:after-throwing method="throwingExcetion" pointcut-ref="perform" throwing="ex"/>
+  		</aop:aspect>
+  	</aop:config>
+</beans>

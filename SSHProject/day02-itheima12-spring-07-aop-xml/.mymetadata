@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="day02-itheima12-spring-07-aop-xml"
+  id="myeclipse.1505228782610"
+  context-root="/WorkOne"
+  j2ee-spec="6.0"
+  archive="day02-itheima12-spring-07-aop-xml.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
