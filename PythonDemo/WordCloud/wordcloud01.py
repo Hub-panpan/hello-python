@@ -35,7 +35,7 @@ from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 d = path.dirname(__file__)
 
 # Read the whole text.
-text = open(path.join(d, 'test.txt')).read()
+text = open(path.join(d, 'test2.txt')).read()
 #os.path.join(path,name)
 #连接目录与文件名或目录 结果为path/name
 # read the mask / color image taken from
