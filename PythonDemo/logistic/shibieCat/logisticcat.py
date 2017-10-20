@@ -168,11 +168,11 @@ plt.title("Learning rate =" + str(d["learning_rate"]))
 plt.show()
 
 # 学习率不同时的学习曲线
-learning_rates = [0.01, 0.0001]
+learning_rates = [0.003]
 models = {}
 for i in learning_rates:
     print("学习率: " + str(i))
-    models[str(i)] = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations=1500, learning_rate=i,
+    models[str(i)] = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations=10000, learning_rate=i,
                            print_cost=False)
     print('\n' + "-------------------------------------------------------" + '\n')
 
@@ -188,7 +188,7 @@ frame.set_facecolor('0.90')
 plt.show()
 
 # 使用自己的图片测试这个猫识别器
-fname = "mycat.jpg"  # 改成自己的图片文件名
+fname = "not.png"  # 改成自己的图片文件名
 
 image = np.array(ndimage.imread(fname, flatten=False))
 my_image = scipy.misc.imresize(image, size=(num_px, num_px)).reshape((1, num_px * num_px * 3)).T

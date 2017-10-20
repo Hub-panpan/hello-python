@@ -11,7 +11,9 @@ arrow_args = dict(arrowstyle="<-")
 
 def getNumLeafs(myTree):
     numLeafs = 0
-    firstStr = myTree.keys()[0]
+#    print(myTree.keys()[0])
+    firstStr = list(myTree.keys())[0]
+#    print(firstStr)
     secondDict = myTree[firstStr]
     for key in secondDict.keys():
         if type(secondDict[key]).__name__=='dict':#test to see if the nodes are dictonaires, if not they are leaf nodes
@@ -21,7 +23,7 @@ def getNumLeafs(myTree):
 
 def getTreeDepth(myTree):
     maxDepth = 0
-    firstStr = myTree.keys()[0]
+    firstStr = list(myTree.keys())[0]
     secondDict = myTree[firstStr]
     for key in secondDict.keys():
         if type(secondDict[key]).__name__=='dict':#test to see if the nodes are dictonaires, if not they are leaf nodes
@@ -43,7 +45,7 @@ def plotMidText(cntrPt, parentPt, txtString):
 def plotTree(myTree, parentPt, nodeTxt):#if the first key tells you what feat was split on
     numLeafs = getNumLeafs(myTree)  #this determines the x width of this tree
     depth = getTreeDepth(myTree)
-    firstStr = myTree.keys()[0]     #the text label for this node should be this
+    firstStr = list(myTree.keys())[0]     #the text label for this node should be this
     cntrPt = (plotTree.xOff + (1.0 + float(numLeafs))/2.0/plotTree.totalW, plotTree.yOff)
     plotMidText(cntrPt, parentPt, nodeTxt)
     plotNode(firstStr, cntrPt, parentPt, decisionNode)
@@ -84,5 +86,23 @@ def retrieveTree(i):
                   {'no surfacing': {0: 'no', 1: {'flippers': {0: {'head': {0: 'no', 1: 'yes'}}, 1: 'no'}}}}
                   ]
     return listOfTrees[i]
+#从文本文件中读取序列化后的决策树的相关数据
+filename="tree.txt"
+def grabTree(filename):
+    import pickle
+    fr = open(filename,'rb')
+    datatree=pickle.load(fr)
+    return datatree
+tree=grabTree(filename)
+print(tree)
+createPlot(tree)
+#
+#thisTree=retrieveTree(0)
+##createPlot()
+#print(thisTree)
+#numleaf=getNumLeafs(thisTree)
+#print(numleaf)
+#maxdepth=getTreeDepth(thisTree)
+#print(maxdepth)
+##createPlot(thisTree)
 
-#createPlot(thisTree)
